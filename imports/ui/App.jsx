@@ -1,11 +1,16 @@
-import React from 'react';
-import { Hello } from './Hello.jsx';
-import { Info } from './Info.jsx';
+import React from "react";
+import Task from "./Task.jsx";
+import { useTracker } from "meteor/react-meteor-data";
+import { TasksCollection } from "../api/tasks";
 
-export const App = () => (
-  <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello/>
-    <Info/>
-  </div>
-);
+export const App = () => {
+  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+
+  return (
+    <div>
+      {tasks.map((task) => (
+        <Task key={task._id} task={task} />
+      ))}
+    </div>
+  );
+};
