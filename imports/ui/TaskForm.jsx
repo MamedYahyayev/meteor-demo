@@ -27,9 +27,7 @@ const TaskForm = () => {
         value={text}
         onChange={onTextChange}
       />
-      <button type="submit" style={{ padding: ".4em 3em", marginLeft: "1em" }}>
-        Add Task
-      </button>
+      <button type="submit">Add Task</button>
     </form>
   );
 };
