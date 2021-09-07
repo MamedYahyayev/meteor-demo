@@ -1,15 +1,18 @@
 import React from "react";
 import { TasksCollection } from "../api/tasks";
 
-const TaskForm = () => {
+const TaskForm = ({ user }) => {
   const [text, setText] = React.useState("");
 
   const handleSubmitTask = (e) => {
     e.preventDefault();
 
+    if (!text) return;
+
     TasksCollection.insert({
-      text,
+      text: text.trim(),
       createdAt: new Date(),
+      userId: user._id,
     });
 
     setText("");

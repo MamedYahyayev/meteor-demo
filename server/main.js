@@ -1,27 +1,37 @@
 import { Meteor } from "meteor/meteor";
 import { TasksCollection } from "/imports/api/tasks";
+import { Accounts } from "meteor/accounts-base";
 
-function insertTasks({ name }) {
-  TasksCollection.insert({ name, createdAt: new Date() });
+function insertTasks(name, user) {
+  TasksCollection.insert({
+    text: name,
+    userId: user._id,
+    createdAt: new Date(),
+  });
 }
 
+const DEMO_USERNAME = "demo";
+const DEMO_PASSWORD = "12345";
+
 Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
+  if (!Accounts.findUserByUsername(DEMO_USERNAME)) {
+    Accounts.createUser({
+      username: DEMO_USERNAME,
+      password: DEMO_PASSWORD,
+    });
+  }
+
+  const user = Accounts.findUserByUsername(DEMO_USERNAME);
+
   if (TasksCollection.find().count() === 0) {
-    insertTasks({
-      name: "Task One",
-    });
-
-    insertTasks({
-      name: "Task Two",
-    });
-
-    insertTasks({
-      name: "Task Three",
-    });
-
-    insertTasks({
-      name: "Task Four",
-    });
+    [
+      "First Task",
+      "Second Task",
+      "Third Task",
+      "Fourth Task",
+      "Fifth Task",
+      "Sixth Task",
+      "Seventh Task",
+    ].forEach((task) => insertTasks(task, user));
   }
 });
