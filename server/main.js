@@ -2,6 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { TasksCollection } from "/imports/api/tasks";
 import { Accounts } from "meteor/accounts-base";
 import "/imports/api/methods";
+import "/imports/api/publication";
 
 function insertTasks(name, user) {
   TasksCollection.insert({
@@ -12,7 +13,7 @@ function insertTasks(name, user) {
 }
 
 const DEMO_USERNAME = "demo";
-const DEMO_PASSWORD = "12345";
+const DEMO_PASSWORD = "12345"; 
 
 Meteor.startup(() => {
   if (!Accounts.findUserByUsername(DEMO_USERNAME)) {
