@@ -31,16 +31,12 @@ export const App = () => {
   });
 
   const toggleChecked = ({ _id, isChecked }) => {
-    TasksCollection.update(_id, {
-      $set: {
-        isChecked: !isChecked,
-      },
-    });
+    Meteor.call("tasks.setIsChecked", _id, !isChecked);
   };
 
   // delete task
   const onDeleteTask = ({ _id }) => {
-    TasksCollection.remove(_id);
+    Meteor.call("tasks.remove", _id);
   };
 
   // show how many have tasks
