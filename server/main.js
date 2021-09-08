@@ -3,6 +3,7 @@ import { TasksCollection } from "/imports/api/tasks";
 import { Accounts } from "meteor/accounts-base";
 import "/imports/api/methods";
 import "/imports/api/publication";
+import "/imports/api/tasks.test.js"
 
 function insertTasks(name, user) {
   TasksCollection.insert({
